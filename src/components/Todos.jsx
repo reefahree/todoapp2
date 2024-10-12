@@ -1,10 +1,12 @@
 import TodoItem from './TodoItem'
 
-const Todos = ({todos}) => {
+// Menerima function toggleCompleted sebagai sebuah prop
+const Todos = ({todos, toggleCompleted}) => {
   return (
     <div style={styles.container}>
       {todos.map((todo) => {
-        return <TodoItem key={todo.id} todo={todo} />
+        // Teruskan function toggleCompleted ke component TodoItem
+        return <TodoItem key={todo.id} todo={todo} toggleCompleted={toggleCompleted} />
       })}
     </div>
   )
