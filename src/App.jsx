@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Todos from './components/Todos'
 
 function App() {
-  const [todos] = useState([
+  const [todos, setTodos] = useState([
     {
       id: 1,
       title: 'Join Ready Set Code!',
@@ -22,12 +22,23 @@ function App() {
 
   console.log(todos)
 
-  return (
-    <div style={styles.container}>
-      <h1 style={styles.header}>My Todo List</h1>
-      <Todos todos={todos} />
-    </div>
-  )
+  const toggleCompleted = (todoId) => {
+    const updatedTodos = todos.map((todo) => {
+      if (todo.id === todoId) {
+        todo.completed = !todo.completed
+      }
+      return todo
+    })
+    setTodos(updatedTodos)
+  }
+
+return (
+  <div style={styles.container}>
+    <h1 style={styles.header}>My Todo List</h1>
+    {/* Teruskan function toggleCompleted ke component Todos */}
+    <Todos todos={todos} toggleCompleted={toggleCompleted}/>
+  </div>
+)
 }
 
 const styles = {
