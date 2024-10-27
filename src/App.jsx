@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Todos from './components/Todos'
+import TodoForm from './components/TodoForm'
 
 function App() {
   const [todos, setTodos] = useState([
@@ -41,12 +42,35 @@ function App() {
     console.log('deleteTodo function is called')
   }
 
-return (
-  <div style={styles.container}>
+  const addTodo = (todoTitle) => {
+    // Tambahkan validasi jika ternyata tidak ada yang diketikkan sebagai title
+    if (todoTitle === '') {
+      return
+    }
+
+    // Buat data newTodo menggunakan nilai dari todoTitle
+    const newTodo = {
+      id: todos.length + 1,
+      title: todoTitle,
+      completed: false,
+    }
+
+    const updatedTodos = todos.concat(newTodo)
+    setTodos(updatedTodos)
+  }
+
+  return (
+    <div style={styles.container}>
     <h1 style={styles.header}>My Todo List</h1>
     {/* Teruskan function toggleCompleted ke component Todos */}
     <Todos todos={todos} toggleCompleted={toggleCompleted} deleteTodo={deleteTodo}/>
-  </div>
+    <TodoForm addTodo={addTodo} />
+      <Todos
+        todos={todos}
+        toggleCompleted={toggleCompleted}
+        deleteTodo={deleteTodo}
+      />
+    </div>
 )
 }
 
